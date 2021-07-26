@@ -1,26 +1,51 @@
 import React, {useState} from 'react'
-import { Background, Heading, TitleHeading, LightChange, MainCont, Form, InputImg, Input, ListCont, List, ListImg, SingleList, Deletebtn, Check, FooterDesktop, ItemsRemain, CurrentState, ClearCompleted,All, Active, Completed, Reorder, Currentstatemobile, Body } from './ElementsContainer';
+import { Background, Heading, TitleHeading, LightChange, MainCont, Form, InputImg, Input, ListCont, List, ListImg, SingleList, Deletebtn, Check, FooterDesktop, ItemsRemain, CurrentState, ClearCompleted,All, Reorder, Currentstatemobile, Body, InputImgCont, Atrribution, AttributionA, InnerCont, } from './ElementsContainer';
 import sun from "../images/icon-sun.svg";
 import moon from "../images/icon-moon.svg";
 import icon from "../images/icon-check.svg";
 import deleteicon from "../images/icon-cross.svg";
-
+import {nanoid} from "nanoid";
 
 const Container = () => {
 
-    // const [show, setShow] = useState(false);
-
-    // const showLeave = () => setShow(false)
-    // const showEnter = () => setShow(true)
-
+    const [name, setName] = useState('');
     const [time, setTime] = useState(false);
+    const [tasks, setTasks] = useState([]);
+    const [completed, setCompleted] = useState(true);
+
+    const handleComplete = (id) => {
+        // if(id === tasks.id){
+        //     setCompleted(!completed)
+        // }
+        setCompleted(!completed)
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(!name) return;
+        addTask(name);
+        setName("");
+        console.log(tasks);
+    }
+    const addTask = (name) => {
+        const newTask = {id:nanoid(), name, completed:false};
+        setTasks([...tasks, newTask]);
+    }
+
+
+    const handleChange = (e) => {
+        setName(e.target.value)
+    }
+
 
     const changeTime = () => setTime(!time);
 
     return (
         <Body bgColor={time}>
-            <Background time={time}/>
+            <Background time={time}> 
+            </Background>
             <MainCont>
+                <InnerCont>
                 <Heading>
                     <TitleHeading>TODO</TitleHeading>
                     <div onClick={changeTime}>
@@ -31,93 +56,57 @@ const Container = () => {
                         />
                     </div>
                 </Heading>
-                <Form>
-                    <div style={{width:"10%"}}>
-                        <InputImg />
-                    </div>
-                    <Input placeholder="Create a new todo.." type="text"/>
+                <Form bgColor={time} onSubmit={handleSubmit}>
+                    <InputImgCont>
+                        <InputImg color={time} />
+                    </InputImgCont>
+                    <Input placeholder="Create a new todo.."    type="text" 
+                    color={time} 
+                    autoComplete="off" 
+                    value={name} 
+                    onChange={handleChange}/>
                 </Form>
-                <ListCont>
-                    <SingleList>
-                        <div style={{width:"10%"}}>
-                            <ListImg>
-                                <Check src={icon}/>
-                            </ListImg>
-                        </div>
-                        <List >
-                            <div>
-                                <p>Jog Around the park 3x </p>
-                            </div> 
-                            <Deletebtn src={deleteicon}/>
-                        </List>
-                    </SingleList>
-                    
-                    <SingleList>
-                        <div style={{width:"10%"}}>
-                            <ListImg>
-                                <Check src={icon}/>
-                            </ListImg>
-                        </div>
-                        <List >
-                            <div>
-                                <p>Working with Javascript and praying</p>
-                            </div> 
-                            <Deletebtn src={deleteicon}/>
-                        </List>
-                    </SingleList>
-                    <SingleList>
-                        <div style={{width:"10%"}}>
-                            <ListImg>
-                                <Check src={icon}/>
-                            </ListImg>
-                        </div>
-                        <List >
-                            <div>
-                                <p>Working with Javascript and praying</p>
-                            </div> 
-                            <Deletebtn src={deleteicon}/>
-                        </List>
-                    </SingleList>
-                    <SingleList>
-                        <div style={{width:"10%"}}>
-                            <ListImg>
-                                <Check src={icon}/>
-                            </ListImg>
-                        </div>
-                        <List >
-                            <div>
-                                <p>Working with Javascript and praying</p>
-                            </div> 
-                            <Deletebtn src={deleteicon}/>
-                        </List>
-                    </SingleList>
-                    <FooterDesktop>
-                        <ItemsRemain>5 Items Left</ItemsRemain>
+                <ListCont bgColor={time}>
+                    {tasks.map((task, i) => (
+                        <SingleList key={tasks.id}>
+                            <div style={{width:"10%"}}>
+                                <ListImg color={time} onClick={handleComplete} completed={completed}>
+                                    <Check completed={completed} src={icon}/>
+                                </ListImg>
+                            </div>
+                            <List color={time}>
+                                <div>
+                                    <p>{task.name}</p>
+                                </div> 
+                                <Deletebtn onClick={() => console.log(task.id)} src={deleteicon}/>
+                            </List>
+                        </SingleList>
+                        ))}
+                </ListCont>
+                <FooterDesktop bgColor={time}>
+                        <ItemsRemain>{tasks.length} Items Left</ItemsRemain>
                         <CurrentState>
                             <All>All</All>
-                            <Active>Active</Active>
-                            <Completed>Completed</Completed>
+                            <All>Active</All>
+                            <All>Completed</All>
                         </CurrentState>
                         <ClearCompleted>Clear Completed</ClearCompleted>
-                    </FooterDesktop>
-                </ListCont>
-                <Currentstatemobile>
+                </FooterDesktop>
+                <Currentstatemobile bgColor={time}>
                     <All>All</All>
-                    <Active>Active</Active>
-                    <Completed>Completed</Completed>
+                    <All>Active</All>
+                    <All>Completed</All>
                 </Currentstatemobile>
+                </InnerCont>
                 <Reorder>
                     Drag and drop to reoder List
                 </Reorder>
             </MainCont>
 
-
-
-
-            <div class="attribution">
+           <Atrribution>
             Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">Frontend Mentor</a>. 
-            Coded by <a href="https://ee5.netlify.app">Emmanuel Effiong</a>.
-            </div>
+            Coded by <AttributionA href="https://ee5.netlify.app">Emmanuel Effiong</AttributionA>.
+            </Atrribution>
         </Body>
     )
 }
