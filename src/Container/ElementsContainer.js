@@ -157,7 +157,7 @@ width:80%;
 
 export const ListImg = styled(InputImg)`
 margin-left: 50%;
-background: ${props=>props.completed? null: "linear-gradient(to right, #57DDFF, #C058F3)" };
+background: ${props=>props.completed?  "linear-gradient(to right, #57DDFF, #C058F3)" : '' };
 position:relative;
 cursor:pointer;
 &:hover{
@@ -167,14 +167,14 @@ cursor:pointer;
 `
 
 export const Check = styled.img`
-    display:${props => props.completed?"none" : "block"};
+    display:${props => props.completed? "block" : "none"};
     height: 12px;
     width:12px;
     position:absolute;
     top:5px;
     left:5px;
     @media (max-width: 400px){
-        display:${props => props.completed?"none" : "block"};
+        display:${props => props.completed?"block" : "none"};
         height:10px;
         width:10px;
         top:4px;
