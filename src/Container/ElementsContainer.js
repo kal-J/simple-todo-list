@@ -23,9 +23,9 @@ export const MainCont = styled.div `
 `
 export const InnerCont = styled.div`
     width:100%;
-    max-width:650px;
+    max-width:550px;
     margin: auto;
-    margin-top:-14%;
+    margin-top:-16%;
     @media (max-width: 600px) {
         width:85%;
         margin-top:-50%;
@@ -55,10 +55,10 @@ export const Form = styled.form`
     display:flex;
     align-items:center;
     background-color:${props => props.bgColor ? "#393A4C" :"#FAFAFA"};
-    height:70px;
+    height:60px;
     padding: 0% 5%;
     border-radius:5px;
-    margin-top:6%;
+    margin-top:8%;
     @media (max-width: 375px){
         height:60px;
         margin-top:12%;
@@ -87,7 +87,7 @@ export const Input = styled.input`
     background-color: transparent;
     border: 0;
     color: ${props => props.color ? "#CACDE8" :"#484B6A"};
-    font-size:25px;
+    font-size:20px;
     font-family: inherit;
     caret-color: hsl(220, 98%, 61%);
     @media (max-width: 500px){
@@ -105,6 +105,13 @@ export const ListCont = styled.div`
     margin-top:5%;
     max-height: 300px;
     overflow-y:scroll;
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: hsl(220, 98%, 61%);
+        border-radius:10px;
+    }
 `
     
 export const Deletebtn = styled.img`
@@ -125,7 +132,7 @@ export const SingleList = styled.div`
     display:flex;
     align-items:center;
     justify-items:center;
-    height:70px;
+    height:60px;
     justify-content: space-between;
     border-bottom:0.8px solid hsl(236, 33%, 92%);
     @media (max-width: 375px){
@@ -157,7 +164,7 @@ width:80%;
 
 export const ListImg = styled(InputImg)`
 margin-left: 50%;
-background: ${props=>props.completed?  "linear-gradient(to right, #57DDFF, #C058F3)" : '' };
+background: ${props => props.completed?"linear-gradient(to right, #57DDFF, #C058F3)" : ""};
 position:relative;
 cursor:pointer;
 &:hover{
@@ -167,22 +174,22 @@ cursor:pointer;
 `
 
 export const Check = styled.img`
-    display:${props => props.completed? "block" : "none"};
+    display:${props => props.completed?"block": "none"};
     height: 12px;
     width:12px;
     position:absolute;
     top:5px;
     left:5px;
     @media (max-width: 400px){
-        display:${props => props.completed?"block" : "none"};
+        display:${props => props.completed?"block": "none"};
         height:10px;
         width:10px;
         top:4px;
         left:4px;
-}
+    }
 `
 export const FooterDesktop = styled.div`
-    height: 70px;
+    height: 60px;
     display:flex;
     align-items:center;
     justify-items:center;

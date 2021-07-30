@@ -12,15 +12,11 @@ const Container = () => {
     const [time, setTime] = useState(false);
     const [tasks, setTasks] = useState([]);
 
+
     const handleComplete = (index) => {
-
         let clickedTask = tasks[index];
-
         tasks[index] = {...clickedTask, completed: !clickedTask.completed};
-
-
         setTasks([...tasks]);
-        //setCompleted(!completed)
     };
 
     const handleSubmit = (e) => {
@@ -28,7 +24,6 @@ const Container = () => {
         if(!name) return;
         addTask(name);
         setName("");
-        //console.log(tasks);
     }
 
     const addTask = (name) => {
@@ -72,14 +67,13 @@ const Container = () => {
                 </Form>
                 
                 <ListCont bgColor={time}>
-
-                    {tasks.map((task, index) => {
-                        return(
-                        <SingleList key={index}>
-                            <div style={{width:"10%"}}>
-
-                                <ListImg color={time} onClick={() => handleComplete(index)} completed={task.completed}>
-                                    <Check completed={task.completed} src={icon}/>
+                    {tasks.map((task, index) => (
+                        <SingleList key={index} >
+                            <div style={{width:"10%"}} >
+                                <ListImg color={time} 
+                                onClick={()=>handleComplete(index)} completed={task.completed}
+                                >
+                                    <Check src={icon} completed={task.completed}/>
                                 </ListImg>
                                 
                             </div>
@@ -96,7 +90,7 @@ const Container = () => {
                 </ListCont>
 
                 <FooterDesktop bgColor={time}>
-                        <ItemsRemain>{tasks.length} Items Left</ItemsRemain>
+                        <ItemsRemain>{tasks.length} {tasks.length <= 1?"Item":"Items"} Left</ItemsRemain>
                         <CurrentState>
                             <All>All</All>
                             <All>Active</All>
