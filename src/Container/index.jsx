@@ -38,12 +38,26 @@ const Container = () => {
   const [time, setTime] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [countIncomplete, setCountIncomplete] = useState(tasks.length);// Initially all tasks are incomplete
+  const [filterTasks, setFilterTasks] = useState(''); // this will track active or all or completed btn clicks
 
   // use Effect callback will run each time tasks change
   useEffect(() => {
     let incomplete = tasks.filter(task => !task.completed); // filter out tasks with completed set to false
     setCountIncomplete(incomplete.length); // update incomplete count number
-  }, [tasks])
+  }, [tasks]);
+
+  // use Effect callback will run each time filterTasks changes
+  useEffect(() => {
+    if(filterTasks === 'active') {
+        // Run your active filter here and update state 
+    }
+
+    if(filterTasks === 'completed') {
+        // Run your completed filter here and update state 
+    }
+
+    
+  }, [filterTasks])
 
   const handleComplete = index => {
     let clickedTask = tasks[index];
@@ -68,7 +82,7 @@ const Container = () => {
   };
 
   const changeTime = () => setTime(!time);
-  
+
   const handleClearCompleted = () => {
       setTasks(
           [...tasks.filter(task => !task.completed)] // update state with only tasks which are not completed
@@ -134,9 +148,10 @@ const Container = () => {
               {countIncomplete} {countIncomplete <= 1 ? "Item" : "Items"} Left
             </ItemsRemain>
             <CurrentState>
-              <All>All</All>
-              <All>Active</All>
-              <All>Completed</All>
+                {/* In your styled component check if 'clicked === true' and apply styles accordingly */}
+              <All onClick={() => setFilterTasks('all')} clicked={filterTasks === 'all'}>All</All>
+              <All onClick={() => setFilterTasks('active')} clicked={filterTasks === 'active'}>Active</All>
+              <All onClick={() => setFilterTasks('completed')} clicked={filterTasks === 'completed'}>Completed</All>
             </CurrentState>
             <ClearCompleted onClick={handleClearCompleted}>Clear Completed</ClearCompleted>
           </FooterDesktop>
